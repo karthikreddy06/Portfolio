@@ -1,6 +1,7 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import {
@@ -17,6 +18,8 @@ import {
   Menu,
   Network,
   Sparkles,
+  Sun,
+  Moon,
   X,
   type LucideIcon,
 } from "lucide-react";
@@ -33,8 +36,9 @@ const abilities: [string, LucideIcon, string[]][] = [
 const links = {
   email: "mailto:karthikkarthik05421@gmail.com",
   github: "https://github.com/karthikreddy06/SkillMatch-V3",
+  profileGithub: "https://github.com/karthikreddy06",
   linkedin: "https://www.linkedin.com",
-  resume: "/Karthik_Reddy_GraduateEngineer.pdf",
+  resume: "/resume",
 };
 
 const fade = {
@@ -97,6 +101,25 @@ export default function Home() {
   const [role, setRole] = useState(0);
   const [menu, setMenu] = useState(false);
 
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const activeTheme = savedTheme || systemTheme;
+    setTheme(activeTheme);
+    document.documentElement.setAttribute('data-theme', activeTheme);
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  };
+
   useEffect(() => {
     const timer = setInterval(() => setRole((index) => (index + 1) % roles.length), 2500);
     return () => clearInterval(timer);
@@ -123,10 +146,15 @@ export default function Home() {
             </a>
           ))}
         </div>
-        <a className="navbutton" href="#contact">Contact <ArrowUpRight size={14} /></a>
-        <button className="menubutton" onClick={() => setMenu(!menu)}>
-          {menu ? <X /> : <Menu />}
-        </button>
+        <div className="nav-controls">
+          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+            {mounted && theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+          <a className="navbutton" href="#contact">Contact <ArrowUpRight size={14} /></a>
+          <button className="menubutton" onClick={() => setMenu(!menu)}>
+            {menu ? <X /> : <Menu />}
+          </button>
+        </div>
       </header>
 
       <section className="hero wrap" id="top">
@@ -137,7 +165,7 @@ export default function Home() {
           <p className="summary">Backend systems, intelligent products, and data-driven decisions—brought together with a clear eye for the people on the other side of the screen.</p>
           <div className="hero-actions">
             <a href="#work" className="dark-btn">Selected work <ArrowDownRight size={16} /></a>
-            <a href={links.resume} download className="text-btn">Download résumé <Download size={15} /></a>
+            <Link href={links.resume} className="text-btn">Download résumé <Download size={15} /></Link>
           </div>
           <div className="hero-meta">
             <span><b>8.27</b> CGPA</span>
@@ -361,9 +389,9 @@ export default function Home() {
             <p>If there&apos;s a meaningful problem to solve, I&apos;d be glad to start a conversation.</p>
             <a className="mail-link" href={links.email}>karthikkarthik05421@gmail.com <ArrowUpRight /></a>
             <div>
-              <a href={links.github} target="_blank"><Github /> GitHub</a>
+              <a href={links.profileGithub} target="_blank"><Github /> GitHub</a>
               <a href={links.linkedin} target="_blank"><Linkedin /> LinkedIn</a>
-              <a href={links.resume} download><Download /> Résumé</a>
+              <Link href={links.resume}><Download /> Résumé</Link>
             </div>
           </motion.div>
         </div>
