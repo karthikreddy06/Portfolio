@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import LoadingScreen from "./components/LoadingScreen";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -243,6 +244,7 @@ export default function Home() {
 
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
@@ -285,6 +287,7 @@ export default function Home() {
 
   return (
     <main>
+      <LoadingScreen onComplete={() => setIsLoading(false)} />
       <motion.div className="progress" style={{ scaleX: progress }} />
       <div className="texture" />
       <div className="orb orb1" />
@@ -316,26 +319,93 @@ export default function Home() {
       </header>
 
       <section className="hero wrap" id="top">
-        <motion.div className="hero-copy" initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <Mark>Available for thoughtful engineering teams</Mark>
-          <h1>I build software<br />that feels <em>considered.</em></h1>
-          <p className="changing">Mukkamalla Karthik Reddy <span>—</span> <b key={role}>{roles[role]}</b></p>
-          <p className="summary">Backend systems, intelligent products, and data-driven decisions—brought together with a clear eye for the people on the other side of the screen.</p>
-          <div className="hero-actions">
+        <div className="hero-copy">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={isLoading ? { opacity: 0, y: 12 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+          >
+            <Mark>Available for thoughtful engineering teams</Mark>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={isLoading ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
+          >
+            I build software<br />that feels <em>considered.</em>
+          </motion.h1>
+
+          <motion.p
+            className="changing"
+            initial={{ opacity: 0, y: 15 }}
+            animate={isLoading ? { opacity: 0, y: 15 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            Mukkamalla Karthik Reddy <span>—</span> <b key={role}>{roles[role]}</b>
+          </motion.p>
+
+          <motion.p
+            className="summary"
+            initial={{ opacity: 0, y: 15 }}
+            animate={isLoading ? { opacity: 0, y: 15 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+          >
+            Backend systems, intelligent products, and data-driven decisions—brought together with a clear eye for the people on the other side of the screen.
+          </motion.p>
+
+          <motion.div
+            className="hero-actions"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isLoading ? { opacity: 0, y: 10 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.32 }}
+          >
             <a href="#work" className="dark-btn">Selected work <ArrowDownRight size={16} /></a>
             <Link href={links.resume} className="text-btn">Download résumé <Download size={15} /></Link>
-          </div>
-          <div className="hero-meta">
+          </motion.div>
+
+          <motion.div
+            className="hero-meta"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isLoading ? { opacity: 0, y: 10 } : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.38 }}
+          >
             <span><b>8.27</b> CGPA</span>
             <span><b>2026</b> B.Tech, AI & DS</span>
             <span><b>01</b> Current internship</span>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
-        <motion.div className="hero-portrait" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.12 }}>
+        <motion.div
+          className="hero-portrait"
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={isLoading ? { opacity: 0, scale: 0.98 } : { opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+        >
           <div className="portrait-back" />
           <div className="portrait-photo">
-            <Image src="/karthik-reddy.jpeg" alt="Mukkamalla Karthik Reddy" fill priority sizes="(max-width:760px) 82vw, 500px" />
+            <motion.div
+              className="portrait-image-inner"
+              initial={{ filter: "grayscale(100%) brightness(0.92) contrast(1.02)" }}
+              animate={
+                isLoading
+                  ? { filter: "grayscale(100%) brightness(0.92) contrast(1.02)" }
+                  : { filter: "grayscale(0%) brightness(1) contrast(1)" }
+              }
+              transition={{
+                duration: 1.6,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.25,
+              }}
+            >
+              <Image
+                src="/karthik-reddy.jpeg"
+                alt="Mukkamalla Karthik Reddy"
+                fill
+                priority
+                sizes="(max-width:760px) 82vw, 500px"
+              />
+            </motion.div>
           </div>
           <div className="portrait-caption">
             <span>01 / 06</span>
