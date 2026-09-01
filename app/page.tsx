@@ -85,8 +85,38 @@ const caseStudies: CaseStudy[] = [
     ]
   },
   {
-    id: "study-assistant",
+    id: "triptrack",
     number: "02",
+    name: "TripTrack",
+    subtitle: "Full-Stack Travel Planning & Itinerary Platform",
+    description: "A full-stack travel planning and itinerary management application that enables travelers to organize, track, and budget trips across status lifecycles with multi-tenant data isolation.",
+    tech: ["Python", "FastAPI", "MongoDB Atlas", "React 19", "JWT Auth", "Pydantic"],
+    github: "https://github.com/karthikreddy06/TripTrack",
+    challenge: "Travelers often manage trip details across fragmented tools like notes, spreadsheets, and emails, making it difficult to maintain structured itineraries, track status lifecycles, monitor budgets, and ensure personal data privacy.",
+    solution: "Built a full-stack platform pairing a high-performance Python FastAPI backend with MongoDB Atlas and a React 19 single-page interface. The system delivers secure JWT authentication, multi-tenant isolation, real-time search/filtering, and responsive itinerary management.",
+    workflow: [
+      { step: "01", name: "User Auth & JWT Token Issuance" },
+      { step: "02", name: "React 19 Frontend & Axios Interceptor" },
+      { step: "03", name: "FastAPI REST Endpoints & Pydantic Validation" },
+      { step: "04", name: "Multi-Tenant Ownership Verification" },
+      { step: "05", name: "MongoDB Atlas Document Persistence" }
+    ],
+    features: [
+      "User authentication using bcrypt password hashing and signed JWT Bearer tokens.",
+      "Full CRUD itinerary operations tracking destination, date ranges, status, and budget.",
+      "Multi-criteria real-time destination search, status filtering, and sorting by date or budget.",
+      "Interactive dual-view modes toggling between responsive card grid and tabular data views.",
+      "Live dashboard analytics calculating total trips, active status counts, and total budget caps."
+    ],
+    decisions: [
+      "Implemented Pydantic v2 cross-field model validators to strictly enforce chronological date integrity (ensuring end_date is on or after start_date) and non-negative budgets at the API boundary.",
+      "Enforced route-level multi-tenant ownership guards in FastAPI dependencies, ensuring users can only read, update, or delete itineraries matching their authenticated JWT user_id.",
+      "Configured Axios request and response interceptors on the React 19 frontend to automatically inject JWT Bearer headers and handle global 401 session expirations gracefully."
+    ]
+  },
+  {
+    id: "study-assistant",
+    number: "03",
     name: "AI Study Assistant",
     subtitle: "Intelligent Learning Companion",
     description: "An AI-powered study companion that helps students learn more effectively through automated summarization, interactive flashcards, and intelligent questioning using LLMs.",
@@ -115,7 +145,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "spine-classifier",
-    number: "03",
+    number: "04",
     name: "Lumbar Spine Classifier",
     subtitle: "Deep Learning Medical Diagnostic Assistant",
     description: "A deep learning system designed to automate the classification of lumbar spine degenerative conditions from MRI scans, assisting clinical teams with diagnostics.",
@@ -144,7 +174,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "water-potability",
-    number: "04",
+    number: "05",
     name: "Water Potability ML",
     subtitle: "Environmental Water Quality Assessment",
     description: "A machine learning classification project that predicts whether a water sample is potable based on chemical and physical metrics.",
@@ -490,10 +520,12 @@ export default function Home() {
         <div className="ability-grid">
           {abilities.map(([name, Icon, items], index) => (
             <motion.article 
+              key={`ability-${name}`}
               className="ability-card" 
-              {...fade} 
-              transition={{ delay: index * 0.07 }} 
-              key={name}
+              initial={fade.initial}
+              whileInView={fade.whileInView}
+              viewport={fade.viewport}
+              transition={{ ...fade.transition, delay: index * 0.07 }} 
             >
               <div className="ability-card-header">
                 <span className="ability-card-number">0{index + 1}</span>
@@ -503,7 +535,7 @@ export default function Home() {
               <div className="ability-card-divider" />
               <div className="ability-pills">
                 {items.map((item) => (
-                  <span className="ability-pill" key={`${name}-${item}`}>
+                  <span className="ability-pill" key={`pill-${name}-${item}`}>
                     {item}
                   </span>
                 ))}
@@ -599,9 +631,12 @@ export default function Home() {
         <div className="project-grid">
           {caseStudies.map((project) => (
             <motion.article 
+              key={`case-study-card-${project.id}`}
               className="project-card" 
-              {...fade} 
-              key={project.id}
+              initial={fade.initial}
+              whileInView={fade.whileInView}
+              viewport={fade.viewport}
+              transition={fade.transition}
             >
               <div className="project-card-header">
                 <span className="project-card-number">{project.number}</span>
@@ -613,7 +648,7 @@ export default function Home() {
               <p className="project-card-desc">{project.description}</p>
               <div className="project-card-tech">
                 {project.tech.map((t) => (
-                  <span key={t}>{t}</span>
+                  <span key={`card-tech-${project.id}-${t}`}>{t}</span>
                 ))}
               </div>
               <div className="project-card-actions">
@@ -649,7 +684,13 @@ export default function Home() {
             ["JAVA 17", "Oracle Java SE 17 Developer", "Oracle"],
             ["PY", "Python for Data Science & Machine Learning", "LinkedIn Learning"],
           ].map(([code, title, org], index) => (
-            <motion.article {...fade} transition={{ delay: index * 0.06 }} key={code}>
+            <motion.article 
+              key={`cred-${code}`}
+              initial={fade.initial}
+              whileInView={fade.whileInView}
+              viewport={fade.viewport}
+              transition={{ ...fade.transition, delay: index * 0.06 }} 
+            >
               <span>{code}</span>
               <div>
                 <small>{org} · CERTIFICATION 0{index + 1}</small>
@@ -771,7 +812,7 @@ export default function Home() {
                     <h4>KEY FEATURES</h4>
                     <ul>
                       {activeCaseStudy.features.map((feature, idx) => (
-                        <li key={idx}>{feature}</li>
+                        <li key={`${activeCaseStudy.id}-feature-${idx}`}>{feature}</li>
                       ))}
                     </ul>
                   </section>
@@ -780,7 +821,7 @@ export default function Home() {
                     <h4>TECHNOLOGY STACK</h4>
                     <div className="modal-tech-pills">
                       {activeCaseStudy.tech.map((t) => (
-                        <span key={t} className="modal-tech-pill">{t}</span>
+                        <span key={`${activeCaseStudy.id}-tech-${t}`} className="modal-tech-pill">{t}</span>
                       ))}
                     </div>
                   </section>
@@ -789,7 +830,7 @@ export default function Home() {
                     <h4>KEY TECHNICAL DECISIONS</h4>
                     <ul className="decisions-list">
                       {activeCaseStudy.decisions.map((decision, idx) => (
-                        <li key={idx}>{decision}</li>
+                        <li key={`${activeCaseStudy.id}-decision-${idx}`}>{decision}</li>
                       ))}
                     </ul>
                   </section>
