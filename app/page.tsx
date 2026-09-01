@@ -35,6 +35,7 @@ interface CaseStudy {
   description: string;
   tech: string[];
   github: string;
+  liveDemo?: string;
   challenge: string;
   solution: string;
   workflow: { step: string; name: string }[];
@@ -92,6 +93,7 @@ const caseStudies: CaseStudy[] = [
     description: "A full-stack travel planning and itinerary management application that enables travelers to organize, track, and budget trips across status lifecycles with multi-tenant data isolation.",
     tech: ["Python", "FastAPI", "MongoDB Atlas", "React 19", "JWT Auth", "Pydantic"],
     github: "https://github.com/karthikreddy06/TripTrack",
+    liveDemo: "https://triptrack-frontend.onrender.com/login",
     challenge: "Travelers often manage trip details across fragmented tools like notes, spreadsheets, and emails, making it difficult to maintain structured itineraries, track status lifecycles, monitor budgets, and ensure personal data privacy.",
     solution: "Built a full-stack platform pairing a high-performance Python FastAPI backend with MongoDB Atlas and a React 19 single-page interface. The system delivers secure JWT authentication, multi-tenant isolation, real-time search/filtering, and responsive itinerary management.",
     workflow: [
@@ -658,6 +660,16 @@ export default function Home() {
                 >
                   View Case Study <ArrowUpRight size={14} />
                 </button>
+                {project.liveDemo && (
+                  <a 
+                    className="project-btn-live" 
+                    href={project.liveDemo} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Live Demo <ArrowUpRight size={14} />
+                  </a>
+                )}
                 <a 
                   className="project-btn-secondary" 
                   href={project.github} 
@@ -837,13 +849,23 @@ export default function Home() {
                 </div>
 
                 <div className="modal-footer">
+                  {activeCaseStudy.liveDemo && (
+                    <a
+                      href={activeCaseStudy.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="modal-live-btn"
+                    >
+                      Live Demo <ArrowUpRight size={16} />
+                    </a>
+                  )}
                   <a
                     href={activeCaseStudy.github}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="modal-codebase-btn"
                   >
-                    View Codebase <ArrowUpRight size={16} />
+                    View Codebase <Github size={16} />
                   </a>
                 </div>
               </div>

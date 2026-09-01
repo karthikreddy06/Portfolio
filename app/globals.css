@@ -723,8 +723,9 @@ footer {
 }
 .project-card-actions {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
   margin-top: auto;
 }
 .project-card-actions button, .project-card-actions a {
@@ -746,6 +747,16 @@ footer {
 }
 .project-btn-primary:hover {
   background: var(--olive);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+.project-btn-live {
+  background: var(--olive);
+  color: var(--white);
+  border: 1px solid transparent;
+}
+.project-btn-live:hover {
+  background: var(--ink);
   color: var(--white);
   transform: translateY(-2px);
 }
@@ -902,6 +913,29 @@ footer {
   border-top: 1px solid var(--line);
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.modal-live-btn {
+  background: var(--olive);
+  color: var(--white);
+  border: 1px solid transparent;
+  font-size: 11px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  transition: all 0.25s var(--ease-premium);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.modal-live-btn:hover {
+  background: var(--ink);
+  color: var(--white);
+  transform: translateY(-2px);
 }
 .modal-codebase-btn {
   background: var(--ink);
