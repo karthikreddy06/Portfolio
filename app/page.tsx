@@ -62,7 +62,7 @@ const caseStudies: CaseStudy[] = [
     subtitle: "Full-Stack Job Matching Platform",
     description: "A full-stack job-matching platform that brings job postings, candidate applications, and messaging into one connected experience.",
     tech: ["Node.js", "Express.js", "PostgreSQL", "Supabase", "REST APIs"],
-    github: "https://github.com/karthikreddy06/SkillMatchV3",
+    github: "https://github.com/karthikreddy06/SkillMatch-V3",
     challenge: "Fragmented connections between employers and job candidates lead to lost communication and inefficient application tracking. Existing solutions often lack a cohesive workspace combining discovery, messaging, and application management.",
     solution: "Built a unified portal featuring dedicated dashboards for candidates and employers. Secure authentication protects application lifecycles, and a clean interface keeps messaging and job applications organized in one reliable API-driven system.",
     workflow: [
@@ -93,7 +93,7 @@ const caseStudies: CaseStudy[] = [
     description: "A full-stack travel planning and itinerary management application that enables travelers to organize, track, and budget trips across status lifecycles with multi-tenant data isolation.",
     tech: ["Python", "FastAPI", "MongoDB Atlas", "React 19", "JWT Auth", "Pydantic"],
     github: "https://github.com/karthikreddy06/TripTrack",
-    liveDemo: "https://triptrack-frontend.onrender.com/login",
+    liveDemo: "https://traveltrack-oufm.onrender.com/explore",
     challenge: "Travelers often manage trip details across fragmented tools like notes, spreadsheets, and emails, making it difficult to maintain structured itineraries, track status lifecycles, monitor budgets, and ensure personal data privacy.",
     solution: "Built a full-stack platform pairing a high-performance Python FastAPI backend with MongoDB Atlas and a React 19 single-page interface. The system delivers secure JWT authentication, multi-tenant isolation, real-time search/filtering, and responsive itinerary management.",
     workflow: [
@@ -207,7 +207,7 @@ const caseStudies: CaseStudy[] = [
 
 const links = {
   email: "mailto:karthikkarthik05421@gmail.com",
-  github: "https://github.com/karthikreddy06/SkillMatchV3",
+  github: "https://github.com/karthikreddy06/SkillMatch-V3",
   profileGithub: "https://github.com/karthikreddy06",
   linkedin: "https://www.linkedin.com",
   resume: "/resume",
