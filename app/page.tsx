@@ -202,6 +202,43 @@ const caseStudies: CaseStudy[] = [
       "Applied SMOTE (Synthetic Minority Oversampling Technique) to balance target labels and improve model sensitivity.",
       "Used F1-Score and ROC-AUC metrics for optimization to balance precision and recall in public health predictions."
     ]
+  },
+  {
+    id: "skillmatch-web",
+    number: "06",
+    name: "SkillMatch — AI-Powered Job Matching Platform",
+    subtitle: "AI-Powered Job Matching Platform",
+    description: "An AI-powered job matching platform connecting candidates and employers with personalized job recommendations, applications, profiles, messaging, and employer hiring tools.",
+    tech: ["React", "TypeScript", "Vite", "Django", "Django REST Framework", "PostgreSQL", "Supabase", "JWT Authentication", "REST APIs", "Docker"],
+    github: "https://github.com/karthikreddy06/SkillMatch-Web",
+    liveDemo: "https://skillmatch-frontend-spk8.onrender.com",
+    challenge: "Candidates and employers need a more connected way to discover relevant opportunities, manage applications, and communicate throughout the hiring process. Fragmented workflows make it harder for candidates to find the right roles and for employers to manage applicants efficiently.",
+    solution: "Built a responsive React and TypeScript frontend backed by Django REST APIs, PostgreSQL, and Supabase. The platform combines personalized recommendations, candidate and employer workspaces, application tracking, profiles, messaging, and hiring tools behind JWT and Supabase authentication.",
+    workflow: [
+      { step: "01", name: "JWT / Supabase Authentication" },
+      { step: "02", name: "React Frontend & Job Discovery" },
+      { step: "03", name: "Django REST API Validation" },
+      { step: "04", name: "PostgreSQL Profile & Application Data" },
+      { step: "05", name: "Recommendations & Hiring Workflows" }
+    ],
+    features: [
+      "AI-powered job recommendations personalized to candidate profiles and interests.",
+      "Candidate and employer dashboards for focused job search, applications, and hiring workflows.",
+      "Job search and discovery with tools for finding relevant opportunities.",
+      "Job applications with candidate-side application tracking.",
+      "Employer applicant management for reviewing and progressing candidates.",
+      "Candidate profiles with resume and avatar upload support.",
+      "Messaging between candidates and employers throughout the hiring process.",
+      "JWT and Supabase authentication protecting user accounts and platform access.",
+      "REST API backend built with Django and Django REST Framework.",
+      "Responsive React frontend for consistent use across desktop and mobile devices."
+    ],
+    decisions: [
+      "Separated the responsive React frontend from the Django REST backend to keep the user interface and API responsibilities independently maintainable.",
+      "Used PostgreSQL and Supabase-backed data workflows to support structured profiles, jobs, applications, and messaging relationships.",
+      "Combined JWT and Supabase authentication with API validation to protect candidate and employer workflows.",
+      "Containerized the application with Docker to keep local development and deployment environments consistent."
+    ]
   }
 ];
 
