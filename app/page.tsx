@@ -38,7 +38,9 @@ interface CaseStudy {
   liveDemo?: string;
   challenge: string;
   solution: string;
+  overview?: string;
   workflow: { step: string; name: string }[];
+  imageWorkflow?: { step: string; name: string }[];
   features: string[];
   decisions: string[];
 }
@@ -56,8 +58,76 @@ const abilities: [string, LucideIcon, string[]][] = [
 
 const caseStudies: CaseStudy[] = [
   {
-    id: "skillmatch",
+    id: "multi-document-rag",
     number: "01",
+    name: "Multi-Document RAG Assistant",
+    subtitle: "Multimodal AI Knowledge Assistant & Document Platform",
+    description: "An AI-powered multi-document knowledge assistant that lets users upload and chat with multiple documents using Retrieval-Augmented Generation (RAG), hybrid retrieval, multimodal image understanding, document conversion, authentication, and user-isolated knowledge bases.",
+    tech: [
+      "Python",
+      "FastAPI",
+      "React",
+      "TypeScript",
+      "PostgreSQL",
+      "pgvector",
+      "Groq",
+      "OpenRouter",
+      "all-MiniLM-L6-v2",
+      "Docker",
+      "Supabase",
+      "JWT Auth",
+      "Vercel",
+      "Render"
+    ],
+    github: "https://github.com/karthikreddy06/multi-document-rag-assistant",
+    liveDemo: "https://multi-document-rag-assistant-phi.vercel.app/",
+    overview: "Multi-Document RAG Assistant is an end-to-end, production-ready AI knowledge assistant designed to ingest, process, and query heterogeneous document collections. Unlike standard RAG systems limited to plain text PDFs, it provides comprehensive multimodal document understanding across PDFs, Office documents (DOCX, PPTX, XLSX), tabular datasets (CSV), Markdown, and images. It features hybrid semantic-keyword retrieval backed by PostgreSQL and pgvector, zero-cost local CPU embeddings using all-MiniLM-L6-v2, OpenRouter vision models for image understanding, streaming LLM responses via Groq, natural-language document format conversion, and strict JWT-based multi-user data isolation. The application is fully deployed with a React frontend on Vercel and a containerized FastAPI backend on Render.",
+    challenge: "Knowledge workers and technical teams frequently deal with fragmented documents scattered across various file formats—including dense text PDFs, Word documents, PowerPoint slides, spreadsheets, and visual diagrams. Standard RAG architectures usually only support plain text extraction from PDFs, failing on diagrams, charts, and scanned images. Moreover, existing implementations often suffer from costly external embedding API dependencies, lack of multi-tenant document isolation, slow response latencies, and an inability to convert documents between formats effortlessly.",
+    solution: "Engineered an intelligent, full-stack RAG platform featuring a modern React & TypeScript interface deployed on Vercel and a high-performance, containerized FastAPI backend on Render. The system employs local CPU embeddings (all-MiniLM-L6-v2) to eliminate external embedding API costs and rate limits, coupled with PostgreSQL and pgvector for scoped vector search and hybrid retrieval. For images and diagrams, OpenRouter multimodal vision models inspect visual layouts and extract rich semantic context for indexing. Users interact through streaming Groq LLM inference with document-level citations, convert documents between formats via natural-language commands, and benefit from secure JWT-authenticated, user-isolated knowledge bases.",
+    workflow: [
+      { step: "01", name: "User Query Input" },
+      { step: "02", name: "React Frontend (Vercel)" },
+      { step: "03", name: "FastAPI Backend (Render)" },
+      { step: "04", name: "Authentication + Document Processing" },
+      { step: "05", name: "Local Embeddings (all-MiniLM-L6-v2)" },
+      { step: "06", name: "PostgreSQL + pgvector" },
+      { step: "07", name: "Hybrid Retrieval" },
+      { step: "08", name: "Groq LLM" },
+      { step: "09", name: "Grounded Answer with Citations" }
+    ],
+    imageWorkflow: [
+      { step: "01", name: "Image Upload" },
+      { step: "02", name: "OpenRouter Multimodal Vision" },
+      { step: "03", name: "Visual Description / Extracted Text" },
+      { step: "04", name: "Embeddings (Local all-MiniLM-L6-v2)" },
+      { step: "05", name: "pgvector Vector Storage" },
+      { step: "06", name: "RAG Retrieval" },
+      { step: "07", name: "Grounded Answer" }
+    ],
+    features: [
+      "Multimodal document understanding: native support for PDF, DOCX, PPTX, XLSX, CSV, TXT, Markdown, and images/diagrams.",
+      "OpenRouter multimodal vision integration for extracting visual descriptions and structured text from diagrams, screenshots, and photos.",
+      "Multi-document RAG with scoped retrieval across selected files and verifiable document-level source citations.",
+      "Production vector search using PostgreSQL with the pgvector extension for high-performance similarity search.",
+      "Zero-cost local CPU embeddings powered by ONNX / all-MiniLM-L6-v2, eliminating third-party embedding API costs and rate limits.",
+      "High-throughput streaming AI responses powered by Groq LLM inference for near-instant time-to-first-token.",
+      "Natural-language document conversion: PDF → Word / PowerPoint, DOCX ↔ PDF / PowerPoint, PPTX → DOCX / PDF, XLSX ↔ CSV, and Image → PDF.",
+      "Multi-user data isolation and JWT authentication ensuring users only query their own private document knowledge bases.",
+      "Processing-version-aware document deduplication to avoid redundant vector indexing and unnecessary storage overhead.",
+      "Supabase Storage integration for reliable, persistent production document and asset storage.",
+      "Production-ready deployment: React and TypeScript frontend on Vercel and containerized Docker backend on Render."
+    ],
+    decisions: [
+      "Adopted local CPU embeddings via all-MiniLM-L6-v2 ONNX runtime instead of paid API endpoints, cutting operating costs to zero while ensuring deterministic embedding performance and total data privacy.",
+      "Implemented hybrid retrieval combining PostgreSQL pgvector cosine similarity search with keyword filtering to maximize precision and recall across both domain-specific jargon and conceptual questions.",
+      "Integrated OpenRouter multimodal vision models to bridge the gap between text documents and visual diagrams, enabling seamless questions over charts, infographics, and scanned pages.",
+      "Enforced strict user-isolated query filters and row-level ownership guards at the database and API layers to guarantee complete multi-tenant security.",
+      "Architected server-sent events (SSE) streaming from Groq LLMs through FastAPI to the React client to deliver instant response generation and optimal user experience."
+    ]
+  },
+  {
+    id: "skillmatch",
+    number: "02",
     name: "SkillMatch V3",
     subtitle: "Full-Stack Job Matching Platform",
     description: "A full-stack job-matching platform that brings job postings, candidate applications, and messaging into one connected experience.",
@@ -87,7 +157,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "triptrack",
-    number: "02",
+    number: "03",
     name: "TripTrack",
     subtitle: "Full-Stack Travel Planning & Itinerary Platform",
     description: "A full-stack travel planning and itinerary management application that enables travelers to organize, track, and budget trips across status lifecycles with multi-tenant data isolation.",
@@ -118,7 +188,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "study-assistant",
-    number: "03",
+    number: "04",
     name: "AI Study Assistant",
     subtitle: "Intelligent Learning Companion",
     description: "An AI-powered study companion that helps students learn more effectively through automated summarization, interactive flashcards, and intelligent questioning using LLMs.",
@@ -147,7 +217,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "spine-classifier",
-    number: "04",
+    number: "05",
     name: "Lumbar Spine Classifier",
     subtitle: "Deep Learning Medical Diagnostic Assistant",
     description: "A deep learning system designed to automate the classification of lumbar spine degenerative conditions from MRI scans, assisting clinical teams with diagnostics.",
@@ -176,7 +246,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "water-potability",
-    number: "05",
+    number: "06",
     name: "Water Potability ML",
     subtitle: "Environmental Water Quality Assessment",
     description: "A machine learning classification project that predicts whether a water sample is potable based on chemical and physical metrics.",
@@ -205,7 +275,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "skillmatch-web",
-    number: "06",
+    number: "07",
     name: "SkillMatch — AI-Powered Job Matching Platform",
     subtitle: "AI-Powered Job Matching Platform",
     description: "An AI-powered job matching platform connecting candidates and employers with personalized job recommendations, applications, profiles, messaging, and employer hiring tools.",
@@ -713,7 +783,7 @@ export default function Home() {
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
-                  Codebase <Github size={14} />
+                  GitHub <Github size={14} />
                 </a>
               </div>
             </motion.article>
@@ -830,6 +900,13 @@ export default function Home() {
                 </div>
 
                 <div className="modal-body">
+                  {activeCaseStudy.overview && (
+                    <section className="modal-section">
+                      <h4>PROJECT OVERVIEW</h4>
+                      <p>{activeCaseStudy.overview}</p>
+                    </section>
+                  )}
+
                   <section className="modal-section">
                     <h4>THE CHALLENGE</h4>
                     <p>{activeCaseStudy.challenge}</p>
@@ -842,19 +919,57 @@ export default function Home() {
 
                   <section className="modal-section">
                     <h4>ARCHITECTURE / WORKFLOW</h4>
-                    <div className="workflow-diagram">
-                      {activeCaseStudy.workflow.map((item, idx) => (
-                        <div key={item.step} className="workflow-step-wrapper">
-                          <div className="workflow-step">
-                            <span>{item.step}</span>
-                            <p>{item.name}</p>
+                    {activeCaseStudy.imageWorkflow ? (
+                      <div className="workflows-grid">
+                        <div className="workflow-column">
+                          <h5 className="workflow-pipeline-title">Document RAG Pipeline (Text / PDFs / Office Docs)</h5>
+                          <div className="workflow-diagram">
+                            {activeCaseStudy.workflow.map((item, idx, arr) => (
+                              <div key={`wf-${item.step}-${idx}`} className="workflow-step-wrapper">
+                                <div className="workflow-step">
+                                  <span>{item.step}</span>
+                                  <p>{item.name}</p>
+                                </div>
+                                {idx < arr.length - 1 && (
+                                  <div className="workflow-arrow">↓</div>
+                                )}
+                              </div>
+                            ))}
                           </div>
-                          {idx < activeCaseStudy.workflow.length - 1 && (
-                            <div className="workflow-arrow">↓</div>
-                          )}
                         </div>
-                      ))}
-                    </div>
+
+                        <div className="workflow-column">
+                          <h5 className="workflow-pipeline-title">Multimodal Vision Pipeline (Images)</h5>
+                          <div className="workflow-diagram">
+                            {activeCaseStudy.imageWorkflow.map((item, idx, arr) => (
+                              <div key={`img-wf-${item.step}-${idx}`} className="workflow-step-wrapper">
+                                <div className="workflow-step">
+                                  <span>{item.step}</span>
+                                  <p>{item.name}</p>
+                                </div>
+                                {idx < arr.length - 1 && (
+                                  <div className="workflow-arrow">↓</div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="workflow-diagram">
+                        {activeCaseStudy.workflow.map((item, idx) => (
+                          <div key={item.step} className="workflow-step-wrapper">
+                            <div className="workflow-step">
+                              <span>{item.step}</span>
+                              <p>{item.name}</p>
+                            </div>
+                            {idx < activeCaseStudy.workflow.length - 1 && (
+                              <div className="workflow-arrow">↓</div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </section>
 
                   <section className="modal-section">
@@ -902,7 +1017,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="modal-codebase-btn"
                   >
-                    View Codebase <Github size={16} />
+                    GitHub <Github size={16} />
                   </a>
                 </div>
               </div>
