@@ -309,6 +309,42 @@ const caseStudies: CaseStudy[] = [
       "Combined JWT and Supabase authentication with API validation to protect candidate and employer workflows.",
       "Containerized the application with Docker to keep local development and deployment environments consistent."
     ]
+  },
+  {
+    id: "smart-classroom-proctoring",
+    number: "08",
+    name: "Smart Classroom AI Exam Proctoring",
+    subtitle: "Offline Computer Vision Examination Monitoring",
+    description: "An AI-powered offline exam proctoring prototype using computer vision for multi-student monitoring, head-turn detection, and mobile phone detection.",
+    tech: ["Python", "OpenCV", "YOLO", "Ultralytics", "Computer Vision"],
+    github: "https://github.com/karthikreddy06/Smart-Classroom-AI-Exam-Proctoring",
+    overview: "Smart Classroom AI Exam Proctoring is an offline computer-vision prototype designed for classroom and examination monitoring. It processes webcam input locally and provides real-time visual indicators for student behavior and mobile phone usage.",
+    challenge: "Maintaining academic integrity during classroom exams requires continuous, vigilant monitoring across multiple students simultaneously. Relying on lone human proctors is taxing and prone to missed infractions, while existing automated solutions typically depend on cloud streaming, high bandwidth, and third-party SaaS platforms that introduce severe privacy and connectivity concerns.",
+    solution: "Engineered an offline, local computer-vision prototype using Python, OpenCV, and YOLO. The system captures live webcam input, detects and tracks multiple students via lightweight spatial tracking, monitors head-turn angles for looking-around infractions, and detects unauthorized mobile phone usage with real-time visual warning and alert states—running entirely on local hardware without cloud services.",
+    workflow: [
+      { step: "01", name: "Laptop Webcam" },
+      { step: "02", name: "OpenCV Face Detection" },
+      { step: "03", name: "Student Identification / Tracking" },
+      { step: "04", name: "Head-Turn Detection" },
+      { step: "05", name: "YOLO Phone Detection" },
+      { step: "06", name: "Real-Time Warning / Alert" }
+    ],
+    features: [
+      "Real-time webcam monitoring processing video frames directly on local hardware.",
+      "Face-based student detection using OpenCV frontal face classifiers.",
+      "Multiple student identification with lightweight spatial position-based tracking.",
+      "Head-turn based 'Looking Around' detection monitoring sustained gaze deviations.",
+      "Mobile phone detection powered by Ultralytics YOLO pretrained models.",
+      "Real-time warning and alert status visualization via dynamic bounding boxes and overlays.",
+      "Local/offline processing operating entirely without cloud dependencies or external network requests."
+    ],
+    decisions: [
+      "Utilized OpenCV for face detection to ensure lightweight, real-time frame evaluation on standard laptop CPUs.",
+      "Implemented lightweight position-based student tracking to assign and maintain student IDs across webcam frames without the overhead of heavy deep-learning trackers.",
+      "Configured profile/head-turn detection to identify sustained 'Looking Around' behaviors while ignoring minor natural head adjustments.",
+      "Deployed YOLO pretrained cell-phone detection via Ultralytics for accurate, low-latency mobile device recognition during exam sessions.",
+      "Enforced strictly offline, local processing to preserve student privacy and guarantee consistent operation without cloud service dependencies."
+    ]
   }
 ];
 
