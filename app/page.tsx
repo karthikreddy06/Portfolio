@@ -43,6 +43,8 @@ interface CaseStudy {
   imageWorkflow?: { step: string; name: string }[];
   features: string[];
   decisions: string[];
+  screenshots?: { url: string; title: string; caption: string }[];
+  detailRoute?: string;
 }
 
 const roles = ["AI & Data Science Engineer", "Backend Developer", "Machine Learning Engineer"];
@@ -58,8 +60,94 @@ const abilities: [string, LucideIcon, string[]][] = [
 
 const caseStudies: CaseStudy[] = [
   {
-    id: "multi-document-rag",
+    id: "devagent",
     number: "01",
+    name: "DevAgent",
+    subtitle: "Autonomous AI Software Engineering Agent",
+    description: "Autonomous AI software engineering agent with repository intelligence, human approval, isolated code execution, and automated verification.",
+    tech: [
+      "Python",
+      "FastAPI",
+      "React",
+      "TypeScript",
+      "PostgreSQL",
+      "pgvector",
+      "Redis",
+      "arq",
+      "Docker",
+      "Ollama",
+      "SQLAlchemy",
+      "Alembic",
+      "RAG"
+    ],
+    github: "https://github.com/karthikreddy06/DevAgent",
+    detailRoute: "/projects/devagent",
+    overview: "DevAgent is an autonomous software engineering platform that analyzes repositories using RAG, investigates software issues, generates structured code-change proposals, requires explicit human approval, and verifies approved changes inside an isolated Docker sandbox. Governed by the core safety principle 'AI proposes. Human approves. Sandbox verifies.', DevAgent provides end-to-end repository intelligence with AST chunking and pgvector hybrid retrieval, a multi-agent reasoning team (Planner, Codebase, Debugger), deterministic state machine enforcement, and a safety-first NO_CONFIRMED_BUG resolution mechanism when no reproducible defect exists.",
+    challenge: "Allowing autonomous AI agents to modify software codebases introduces severe risks: uncontrolled file mutations, hallucinated bugs, unbounded code execution on host machines, and broken production environments. Traditional AI coding assistants either operate purely as passive chat prompts or attempt risky autonomous code edits without containment, lack reproducible test execution within isolated environments, and lack strict human authorization checkpoints.",
+    solution: "Engineered DevAgent as a secure, human-in-the-loop autonomous SWE platform. The system separates responsibilities across specialized Planner, Codebase, and Debugger agents orchestrated via FastAPI, Redis, and an arq worker queue. Code context is retrieved using AST-level chunking and pgvector hybrid vector-keyword search. Code modifications are generated as structured unified diffs validated in temporary directories before being submitted to a mandatory human approval gate. Approved patches are branched into isolated workspaces and verified via automated pytest suites inside hardened, network-isolated Docker runner containers with non-root privileges. If an issue is not reproducible from repository evidence, the agent authoritatively concludes NO_CONFIRMED_BUG rather than fabricating speculative code edits.",
+    workflow: [
+      { step: "01", name: "React Frontend (Vite & SSE)" },
+      { step: "02", name: "FastAPI REST API" },
+      { step: "03", name: "Task Orchestrator (arq & Redis)" },
+      { step: "04", name: "RAG Hybrid Retrieval (AST Chunks + pgvector)" },
+      { step: "05", name: "Planner / Codebase / Debugger Agents" },
+      { step: "06", name: "Structured Change Proposal (Unified Diff)" },
+      { step: "07", name: "Human Approval Gate (AWAITING_APPROVAL)" },
+      { step: "08", name: "Isolated Workspace Branching" },
+      { step: "09", name: "Docker Sandbox Execution (runner-python)" },
+      { step: "10", name: "Automated Pytest Verification" },
+      { step: "11", name: "Completed / Failed / Rejected" }
+    ],
+    features: [
+      "Autonomous repository ingestion, AST symbol navigation, and chunk-level vector indexing.",
+      "RAG-based hybrid retrieval combining PostgreSQL pgvector similarity and full-text keyword search.",
+      "Multi-agent reasoning workflow partitioning planning, codebase navigation, and debugging tasks.",
+      "Strict human approval gate preventing any unreviewed modifications from applying to codebases.",
+      "Temporary workspace dry-runs validating patch syntax and diff integrity before human presentation.",
+      "Ephemeral Docker sandbox execution with capability-dropped non-root user and strict network isolation (--network none).",
+      "Targeted automated test selection running unit tests before and after applying proposals.",
+      "Automated self-repair loops feeding test failures and stack traces back to the debugging agent.",
+      "Authoritative NO_CONFIRMED_BUG outcome preventing hallucinated patches when issues cannot be reproduced.",
+      "Real-time event logging streamed via Server-Sent Events (SSE) to the frontend control center."
+    ],
+    decisions: [
+      "Enforced the 'AI proposes, Human approves, Sandbox verifies' security invariant in the state machine, requiring an explicit AWAITING_APPROVAL transition before any patch can be written to the workspace.",
+      "Containerized test execution inside hardened runner-python Docker containers with --network none and non-root execution to prevent untrusted code execution from accessing external networks or host resources.",
+      "Implemented an authoritative NO_CONFIRMED_BUG resolution path to prevent the common LLM failure mode of inventing speculative fixes when repository evidence indicates no defect.",
+      "Adopted AST chunking and PostgreSQL pgvector hybrid search over whole-file embedding to pinpoint exact functions and symbols within large codebases.",
+      "Used an asynchronous arq background worker queue backed by Redis to keep FastAPI API response times sub-millisecond while managing long-running agent workflows."
+    ],
+    screenshots: [
+      {
+        url: "/projects/devagent/dashboard.png",
+        title: "Autonomous Engineering Control Center",
+        caption: "Operational dashboard displaying indexed repository statistics (1,360 AST search chunks), active tasks, isolated Docker sandbox status, recent task runs, and quick actions."
+      },
+      {
+        url: "/projects/devagent/repo.png",
+        title: "Codebase Repositories View",
+        caption: "Multi-repository management showing indexed repositories with branch tracking, file counts, AST chunks, and triggers for codebase re-indexing."
+      },
+      {
+        url: "/projects/devagent/agenttask.png",
+        title: "Agent Tasks & Workflows",
+        caption: "Centralized task orchestration feed tracking autonomous bug-fixing, refactoring, and investigation runs with filtering, iteration tracking, and status badges."
+      },
+      {
+        url: "/projects/devagent/prediction.png",
+        title: "Task Lifecycle & NO_CONFIRMED_BUG Safety Outcome",
+        caption: "Detailed task view demonstrating safe resolution: when no defect was found, DevAgent left files untouched (0 modified) and closed the task with full lifecycle transparency."
+      },
+      {
+        url: "/projects/devagent/result.png",
+        title: "RAG Context & Ranked Evidence Inspection",
+        caption: "Inspection view showing ranked semantic and symbol-level matches from repository retrieval, authoritative outcome verdicts, and execution streams."
+      }
+    ]
+  },
+  {
+    id: "multi-document-rag",
+    number: "02",
     name: "Multi-Document RAG Assistant",
     subtitle: "Multimodal AI Knowledge Assistant & Document Platform",
     description: "An AI-powered multi-document knowledge assistant that lets users upload and chat with multiple documents using Retrieval-Augmented Generation (RAG), hybrid retrieval, multimodal image understanding, document conversion, authentication, and user-isolated knowledge bases.",
@@ -127,7 +215,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "skillmatch",
-    number: "02",
+    number: "03",
     name: "SkillMatch V3",
     subtitle: "Full-Stack Job Matching Platform",
     description: "A full-stack job-matching platform that brings job postings, candidate applications, and messaging into one connected experience.",
@@ -157,7 +245,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "triptrack",
-    number: "03",
+    number: "04",
     name: "TripTrack",
     subtitle: "Full-Stack Travel Planning & Itinerary Platform",
     description: "A full-stack travel planning and itinerary management application that enables travelers to organize, track, and budget trips across status lifecycles with multi-tenant data isolation.",
@@ -188,7 +276,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "study-assistant",
-    number: "04",
+    number: "05",
     name: "AI Study Assistant",
     subtitle: "Intelligent Learning Companion",
     description: "An AI-powered study companion that helps students learn more effectively through automated summarization, interactive flashcards, and intelligent questioning using LLMs.",
@@ -217,7 +305,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "spine-classifier",
-    number: "05",
+    number: "06",
     name: "Lumbar Spine Classifier",
     subtitle: "Deep Learning Medical Diagnostic Assistant",
     description: "A deep learning system designed to automate the classification of lumbar spine degenerative conditions from MRI scans, assisting clinical teams with diagnostics.",
@@ -246,7 +334,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "water-potability",
-    number: "06",
+    number: "07",
     name: "Water Potability ML",
     subtitle: "Environmental Water Quality Assessment",
     description: "A machine learning classification project that predicts whether a water sample is potable based on chemical and physical metrics.",
@@ -275,7 +363,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "skillmatch-web",
-    number: "07",
+    number: "08",
     name: "SkillMatch — AI-Powered Job Matching Platform",
     subtitle: "AI-Powered Job Matching Platform",
     description: "An AI-powered job matching platform connecting candidates and employers with personalized job recommendations, applications, profiles, messaging, and employer hiring tools.",
@@ -312,7 +400,7 @@ const caseStudies: CaseStudy[] = [
   },
   {
     id: "smart-classroom-proctoring",
-    number: "08",
+    number: "09",
     name: "Smart Classroom AI Exam Proctoring",
     subtitle: "Offline Computer Vision Examination Monitoring",
     description: "An AI-powered offline exam proctoring prototype using computer vision for multi-student monitoring, head-turn detection, and mobile phone detection.",
@@ -1008,6 +1096,31 @@ export default function Home() {
                     )}
                   </section>
 
+                  {activeCaseStudy.screenshots && activeCaseStudy.screenshots.length > 0 && (
+                    <section className="modal-section">
+                      <h4>SYSTEM SCREENSHOTS & RUNTIME EVIDENCE</h4>
+                      <div className="modal-screenshots-grid">
+                        {activeCaseStudy.screenshots.map((s, idx) => (
+                          <figure key={`modal-ss-${idx}`} className="modal-screenshot-item">
+                            <div className="modal-screenshot-img-wrap">
+                              <Image
+                                src={s.url}
+                                alt={s.title}
+                                width={1280}
+                                height={720}
+                                className="modal-screenshot-img"
+                              />
+                            </div>
+                            <figcaption>
+                              <strong>{s.title}</strong>
+                              <p>{s.caption}</p>
+                            </figcaption>
+                          </figure>
+                        ))}
+                      </div>
+                    </section>
+                  )}
+
                   <section className="modal-section">
                     <h4>KEY FEATURES</h4>
                     <ul>
@@ -1037,6 +1150,14 @@ export default function Home() {
                 </div>
 
                 <div className="modal-footer">
+                  {activeCaseStudy.detailRoute && (
+                    <Link
+                      href={activeCaseStudy.detailRoute}
+                      className="modal-detail-btn"
+                    >
+                      Full Case Study Page <ArrowUpRight size={16} />
+                    </Link>
+                  )}
                   {activeCaseStudy.liveDemo && (
                     <a
                       href={activeCaseStudy.liveDemo}
