@@ -36,6 +36,7 @@ interface CaseStudy {
   tech: string[];
   github: string;
   liveDemo?: string;
+  codeLabel?: string;
   challenge: string;
   solution: string;
   overview?: string;
@@ -432,6 +433,55 @@ const caseStudies: CaseStudy[] = [
       "Configured profile/head-turn detection to identify sustained 'Looking Around' behaviors while ignoring minor natural head adjustments.",
       "Deployed YOLO pretrained cell-phone detection via Ultralytics for accurate, low-latency mobile device recognition during exam sessions.",
       "Enforced strictly offline, local processing to preserve student privacy and guarantee consistent operation without cloud service dependencies."
+    ]
+  },
+  {
+    id: "interactive-frontend-experience",
+    number: "10",
+    name: "Interactive Frontend Experience",
+    subtitle: "Cinematic Scroll-Driven Web Experience",
+    description: "A high-fidelity, scroll-choreographed digital showcase featuring a multi-scene cinematic landing sequence, dynamic canvas rain simulation, continuous butterfly particle ribbons, and ambient audio integration.",
+    tech: [
+      "React 18",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS v4",
+      "Framer Motion",
+      "Lucide React",
+      "HTML5 Canvas",
+      "Web Audio API"
+    ],
+    github: "https://github.com/karthikreddy06/mamitha",
+    liveDemo: "https://mamitha-eight.vercel.app/",
+    codeLabel: "View Code",
+    overview: "Interactive Frontend Experience is a high-fidelity, scroll-choreographed web application and digital portfolio built with React 18, TypeScript, Vite, Tailwind CSS v4, and Framer Motion. Engineered around editorial aesthetics and fluid motion physics, the application delivers an atmospheric multi-scene cinematic intro sequence with an HTML5 Canvas rain simulation, user-gated ambient soundscape playback, pointer-parallax hero interactions, and a scroll-linked 20-particle ribbon navigating through modular showcase sections including an orbiting moments carousel, looping CRT-style video reels, and interactive media galleries.",
+    challenge: "Orchestrating complex, multi-stage scroll animations, particle simulations, and continuous motion ribbons across heterogeneous viewports without causing layout thrashing, frame drops, or audio desynchronization. Achieving high-polish editorial visuals with custom typography and video interludes while keeping runtime performance at a consistent 60fps.",
+    solution: "Developed a modular, scroll-choreographed frontend architecture using Framer Motion's normalized useScroll and useTransform hooks to decouple motion paths from DOM layout reflows. Implemented an optimized 2D HTML5 Canvas for the atmospheric rain simulation, integrated a centralized Web Audio context provider with browser autoplay compliance, and styled the interface using modern Tailwind CSS v4 tokens and responsive typography.",
+    workflow: [
+      { step: "01", name: "Cinematic Intro Sequence & Canvas Rain" },
+      { step: "02", name: "Web Audio Context & Soundscape Gate" },
+      { step: "03", name: "Hero Stage & Pointer Parallax" },
+      { step: "04", name: "Framer Motion Scroll-Journey Transform" },
+      { step: "05", name: "Continuous 20-Particle Ribbon Flow" },
+      { step: "06", name: "Orbiting Moments & Looping Reel" },
+      { step: "07", name: "CRT Concave Video & Mirror Panel" },
+      { step: "08", name: "Editorial Gallery & Finale Fan Layout" }
+    ],
+    features: [
+      "Multi-scene atmospheric intro sequence with interactive audio gate and smooth scene transitions.",
+      "Custom HTML5 Canvas rain simulation dynamically animating atmospheric downpour with optimized frame rates.",
+      "Scroll-choreographed continuous butterfly particle ribbon synchronized with page scroll depth.",
+      "Pointer-parallax interactive hero stage with floating editorial cards and layered typographic backdrops.",
+      "Interactive presentation components including an orbiting moments ring and concave CRT video reel.",
+      "Centralized Web Audio API context provider managing seamless ambient background soundscapes.",
+      "Modern responsive design crafted with Tailwind CSS v4, Lucide icons, and fluid viewport typography."
+    ],
+    decisions: [
+      "Utilized Framer Motion useScroll and useTransform to drive the global scroll journey, ensuring 60fps animations decoupled from heavy re-renders.",
+      "Implemented the atmospheric rain effect on an HTML5 2D Canvas rather than DOM nodes to keep memory usage minimal and prevent DOM overhead.",
+      "Built with Vite and React 18 in strict TypeScript mode for ultra-fast HMR and compile-time interface verification.",
+      "Architected a dedicated AudioContext provider with user-gesture gates to comply with modern browser autoplay policies.",
+      "Adopted Tailwind CSS v4 alongside modular layout configurations to decouple geometric curves and coordinate positioning from presentation logic."
     ]
   }
 ];
@@ -907,7 +957,7 @@ export default function Home() {
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
-                  GitHub <Github size={14} />
+                  {project.codeLabel || "GitHub"} <Github size={14} />
                 </a>
               </div>
             </motion.article>
@@ -1174,7 +1224,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="modal-codebase-btn"
                   >
-                    GitHub <Github size={16} />
+                    {activeCaseStudy.codeLabel || "GitHub"} <Github size={16} />
                   </a>
                 </div>
               </div>
